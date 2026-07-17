@@ -1,0 +1,36 @@
+1
+00:00:00,000 --> 00:00:15,440
+Imagine reading a novel through a keyhole, one word at a time, only allowed to remember a tiny summary of everything before. By the time you reach the end of a long sentence, the beginning is a blur. For years, that keyhole was how our best language machines read. It made them slow, and forgetful.
+
+2
+00:00:19,397 --> 00:00:37,013
+The old approach was called a recurrent network. It processed words strictly in order, each step waiting for the one before it. That chain is impossible to speed up, because step ten cannot start until step nine finishes. And connecting two distant words means passing information down the whole chain, where it fades a little at every link.
+
+3
+00:00:37,997 --> 00:00:54,429
+Here is the idea that broke the chain. What if every word could look directly at every other word, all at once, no waiting, no fading? Instead of passing a message down a line, each word asks the whole sentence a question and gathers answers straight from the source. This is called attention, and it needs nothing else.
+
+4
+00:00:54,829 --> 00:01:13,309
+How does a word decide where to look? Each word carries three things: a query, meaning what am I searching for, a key, meaning what do I offer, and a value, its actual content. A word compares its query against every key. Strong matches get strong weights. Then it blends the values together, weighted by those matches. That blend is its new understanding.
+
+5
+00:01:16,829 --> 00:01:35,805
+Those raw match scores get squeezed through a step called softmax, which turns them into percentages that add up to one hundred. Now a word spends its attention like a budget: maybe seventy percent on one word, twenty on another, the rest scattered. One catch, big scores blow up, so they first divide by a scaling number to keep the math calm and learnable.
+
+6
+00:01:36,229 --> 00:01:56,293
+One problem: doing this all at once forgets word order, and a single viewpoint misses nuance. So the model runs eight attention passes in parallel, called heads, each learning a different relationship, one tracks grammar, another meaning. And to restore order, each word gets a gentle wave pattern added, a positional signal, so the model always knows who came first.
+
+7
+00:01:56,693 --> 00:02:15,941
+Because attention looks everywhere at once, the whole sentence processes in parallel instead of in a slow chain. The payoff was huge. On a standard English to German translation test, this design scored twenty-eight point four, beating every prior model, even committees of models, by over two points, while training in a fraction of the time on eight graphics chips.
+
+8
+00:02:16,341 --> 00:02:32,821
+But looking at everything has a price. Comparing every word to every other word means the work grows with the square of the sentence length. Double the length, and you quadruple the comparisons. For a short sentence that is cheap, but for a whole book it becomes enormous, and taming that cost is a problem researchers are still working on today.
+
+9
+00:02:36,741 --> 00:02:53,493
+The lasting lesson is simple. You do not need a complicated chain to understand language, you just need every piece to attend to every other piece, directly, all at once. That one idea now powers the chatbots and image tools you use every day. Sometimes progress is not adding more machinery, but daring to remove it.
+

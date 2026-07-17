@@ -21,3 +21,14 @@ python -m papermotion.cli generate mypaper.pdf -o video.mp4          # local PDF
 
 LLM calls go through the `claude` CLI in headless mode, so it uses your existing
 Claude login. See `PLAN.md` for architecture and roadmap.
+
+## Demo result
+
+`examples/output/attention_explained.mp4` — a 2:57, 720p explainer of
+*Attention Is All You Need*, generated fully automatically from
+`examples/attention_is_all_you_need.md`: 9 scenes, all rendered from
+LLM-written Manim code on the first attempt (zero fallbacks), narrated with an
+offline neural voice (piper), with subtitles in
+`examples/output/attention_explained.srt`.
+
+![Query, Key, Value scene](examples/output/preview_query_key_value.png)

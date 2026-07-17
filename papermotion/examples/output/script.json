@@ -1,0 +1,165 @@
+{
+  "paper_title": "Attention Is All You Need",
+  "audience": "smart undergraduate",
+  "scenes": [
+    {
+      "id": 1,
+      "title": "The Sentence Bottleneck",
+      "narration": "Imagine reading a novel through a keyhole, one word at a time, only allowed to remember a tiny summary of everything before. By the time you reach the end of a long sentence, the beginning is a blur. For years, that keyhole was how our best language machines read. It made them slow, and forgetful.",
+      "visual_spec": {
+        "description": "A long horizontal row of eight labeled word boxes reading a sentence appears dimmed. A small bright dot moves left to right, landing on one box at a time; as it moves, earlier boxes fade toward gray. A tiny box labeled Memory travels with the dot, staying the same small size while the faded words pile up behind it.",
+        "elements": [
+          "row of boxes: The cat that chased the mouse was fast",
+          "moving dot: reader position",
+          "small box: Memory (stays tiny)",
+          "earlier boxes fade to gray as dot passes"
+        ],
+        "style": "diagram",
+        "duration_hint": 20.0
+      },
+      "duration_hint": 20.0
+    },
+    {
+      "id": 2,
+      "title": "One Word At A Time",
+      "narration": "The old approach was called a recurrent network. It processed words strictly in order, each step waiting for the one before it. That chain is impossible to speed up, because step ten cannot start until step nine finishes. And connecting two distant words means passing information down the whole chain, where it fades a little at every link.",
+      "visual_spec": {
+        "description": "The eight word boxes are connected left to right by arrows forming a single chain. Each arrow lights up one after another in sequence, never simultaneously, emphasizing the wait. A pulse of color starts at the first box and travels the chain to the last box, visibly dimming at each hop until it arrives faint.",
+        "elements": [
+          "chain of arrows: box1 -> box2 -> ... -> box8",
+          "arrows light sequentially, one at a time",
+          "color pulse travels full chain",
+          "pulse dims at every hop"
+        ],
+        "style": "diagram",
+        "duration_hint": 20.0
+      },
+      "duration_hint": 20.0
+    },
+    {
+      "id": 3,
+      "title": "Let Every Word Look",
+      "narration": "Here is the idea that broke the chain. What if every word could look directly at every other word, all at once, no waiting, no fading? Instead of passing a message down a line, each word asks the whole sentence a question and gathers answers straight from the source. This is called attention, and it needs nothing else.",
+      "visual_spec": {
+        "description": "The chain arrows vanish. The same row of eight word boxes reorganizes, and suddenly faint arrows appear connecting every box to every other box simultaneously, a full web lighting up in one flash. Then one box, labeled it, glows and its arrows to two other boxes, cat and mouse, brighten while the rest dim.",
+        "elements": [
+          "row of word boxes",
+          "all-to-all arrows appear at once (full web)",
+          "highlight box: it",
+          "arrows it -> cat and it -> mouse brighten",
+          "other arrows dim"
+        ],
+        "style": "diagram",
+        "duration_hint": 20.0
+      },
+      "duration_hint": 20.0
+    },
+    {
+      "id": 4,
+      "title": "Query, Key, Value",
+      "narration": "How does a word decide where to look? Each word carries three things: a query, meaning what am I searching for, a key, meaning what do I offer, and a value, its actual content. A word compares its query against every key. Strong matches get strong weights. Then it blends the values together, weighted by those matches. That blend is its new understanding.",
+      "visual_spec": {
+        "description": "One focus word box labeled it emits a small tag labeled Query. Below, three other word boxes each display two tags: Key and Value. Arrows shoot from Query to each Key; a number appears on each arrow showing match strength. Bars beside each word grow taller for higher matches. Finally the Values flow into a new box labeled it, sized by their bars.",
+        "elements": [
+          "focus box with tag: Query",
+          "three boxes with tags: Key, Value",
+          "arrows Query -> each Key with match number",
+          "bars grow by match strength",
+          "weighted Values merge into new representation box"
+        ],
+        "style": "diagram",
+        "duration_hint": 22.0
+      },
+      "duration_hint": 22.0
+    },
+    {
+      "id": 5,
+      "title": "Softmax Turns Scores To Focus",
+      "narration": "Those raw match scores get squeezed through a step called softmax, which turns them into percentages that add up to one hundred. Now a word spends its attention like a budget: maybe seventy percent on one word, twenty on another, the rest scattered. One catch, big scores blow up, so they first divide by a scaling number to keep the math calm and learnable.",
+      "visual_spec": {
+        "description": "Three raw score numbers sit above three bars of uneven, exaggerated height. They each get divided by a labeled scale factor, shrinking slightly. Then a softmax box transforms them into three percentage bars that visibly resize until their combined width fills exactly one full budget bar labeled 100 percent, with segments 70, 20, 10.",
+        "elements": [
+          "three raw scores above tall bars",
+          "divide-by-scale step shrinks bars",
+          "softmax box transform",
+          "budget bar: 100 percent split 70 / 20 / 10",
+          "percentages fill exactly to full"
+        ],
+        "style": "chart",
+        "duration_hint": 20.0
+      },
+      "duration_hint": 20.0
+    },
+    {
+      "id": 6,
+      "title": "Many Heads, Order Kept",
+      "narration": "One problem: doing this all at once forgets word order, and a single viewpoint misses nuance. So the model runs eight attention passes in parallel, called heads, each learning a different relationship, one tracks grammar, another meaning. And to restore order, each word gets a gentle wave pattern added, a positional signal, so the model always knows who came first.",
+      "visual_spec": {
+        "description": "The single attention web splits into eight stacked translucent copies, each tinted a different color, all computing side by side, then merging back into one combined row. Separately, beneath the word row, eight sine and cosine waves of different frequencies stack up; a sampled column of their values slides up and adds onto each word box as a small colored fingerprint.",
+        "elements": [
+          "one web splits into 8 colored parallel heads",
+          "heads compute simultaneously then concatenate",
+          "stacked sine and cosine waves of varying frequency",
+          "position fingerprint added to each word box",
+          "label: 8 heads"
+        ],
+        "style": "diagram",
+        "duration_hint": 22.0
+      },
+      "duration_hint": 22.0
+    },
+    {
+      "id": 7,
+      "title": "Faster And Better",
+      "narration": "Because attention looks everywhere at once, the whole sentence processes in parallel instead of in a slow chain. The payoff was huge. On a standard English to German translation test, this design scored twenty-eight point four, beating every prior model, even committees of models, by over two points, while training in a fraction of the time on eight graphics chips.",
+      "visual_spec": {
+        "description": "Two horizontal progress bars race left to right labeled Recurrent and Transformer; the Transformer bar fills far faster and finishes first while the other is midway. Then two vertical quality bars grow: the old best rises to a marked line, the Transformer bar grows past it to a value tagged 28.4 BLEU, with a bracket showing the plus two point gap.",
+        "elements": [
+          "racing bars: Recurrent vs Transformer (speed)",
+          "Transformer finishes first",
+          "quality bars: Old Best vs Transformer",
+          "Transformer bar tagged 28.4",
+          "gap bracket: +2 points"
+        ],
+        "style": "comparison",
+        "duration_hint": 20.0
+      },
+      "duration_hint": 20.0
+    },
+    {
+      "id": 8,
+      "title": "The Cost Of Looking Everywhere",
+      "narration": "But looking at everything has a price. Comparing every word to every other word means the work grows with the square of the sentence length. Double the length, and you quadruple the comparisons. For a short sentence that is cheap, but for a whole book it becomes enormous, and taming that cost is a problem researchers are still working on today.",
+      "visual_spec": {
+        "description": "A square grid of cells where both axes are the words of a sentence; every cell fills in, representing every pairwise comparison. A slider labeled length doubles the sentence; the grid expands and the count of filled cells visibly quadruples, with a rising curve plotted beside it labeled work versus length, curving steeply upward.",
+        "elements": [
+          "N by N grid of word-pair cells, all filled",
+          "length slider doubles",
+          "grid grows, filled cells quadruple",
+          "curve plot: work rises as length squared",
+          "label: cost grows with length squared"
+        ],
+        "style": "chart",
+        "duration_hint": 20.0
+      },
+      "duration_hint": 20.0
+    },
+    {
+      "id": 9,
+      "title": "Attention Is All You Need",
+      "narration": "The lasting lesson is simple. You do not need a complicated chain to understand language, you just need every piece to attend to every other piece, directly, all at once. That one idea now powers the chatbots and image tools you use every day. Sometimes progress is not adding more machinery, but daring to remove it.",
+      "visual_spec": {
+        "description": "The full all-to-all attention web from earlier glows warmly at center. Around it, simple icons morph in sequence out of the same web, a chat bubble, a small waveform, a tiny picture grid, showing the idea spreading. Finally the web collapses into a single clean line of text that types out the phrase attention is all you need.",
+        "elements": [
+          "central glowing attention web",
+          "web morphs into chat bubble, waveform, image grid",
+          "icons emphasize broad reuse",
+          "web collapses to typed text: attention is all you need"
+        ],
+        "style": "typography",
+        "duration_hint": 20.0
+      },
+      "duration_hint": 20.0
+    }
+  ]
+}
