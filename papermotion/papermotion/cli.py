@@ -23,7 +23,7 @@ from pathlib import Path
 
 def _stage_ingest(args) -> None:
     from . import ingest
-    paper = ingest.ingest(args.input)
+    paper = ingest.ingest(args.input, work_dir=Path(args.work))
     from .models import save_json
     save_json(paper, Path(args.work) / "paper.json")
     print(f"[ingest] {paper.title!r} -> {args.work}/paper.json "
