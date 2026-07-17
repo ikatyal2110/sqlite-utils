@@ -1,0 +1,7 @@
+work/
+media/
+__pycache__/
+*.mp4
+*.wav
+*.mp3
+!examples/**/*.md
